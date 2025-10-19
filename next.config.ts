@@ -15,8 +15,8 @@ const nextConfig: NextConfig = {
   },
   // External packages for server components
   serverExternalPackages: ['mongoose'],
-  // Ensure proper static generation
-  output: 'standalone',
+  // Remove standalone output for Vercel compatibility
+  // output: 'standalone',
 };
 
 export default nextConfig;
