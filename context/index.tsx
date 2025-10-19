@@ -22,10 +22,7 @@ function ContextProvider({
     setMounted(true)
   }, [])
 
-  if (!mounted) {
-    return <>{children}</>
-  }
-
+  // Always render the providers, but handle the mounting state inside components
   const initialState = cookieToInitialState(
     wagmiAdapter.wagmiConfig as Config,
     cookies,
@@ -34,7 +31,11 @@ function ContextProvider({
   return (
     <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>{children}</RainbowKitProvider>
+        <RainbowKitProvider>
+          {mounted ? children : <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+            <div className="text-white text-lg">Loading...</div>
+          </div>}
+        </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
   )

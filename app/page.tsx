@@ -6,8 +6,9 @@ import WelcomeSection from '@/components/WelcomeSection';
 import ActionCards from '@/components/ActionCards';
 import FeaturesSection from '@/components/FeaturesSection';
 import Footer from '@/components/Footer';
+import ClientOnly from '@/components/ClientOnly';
 
-export default function Home() {
+function HomeContent() {
   const { address, isConnected } = useAccount();
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -41,7 +42,6 @@ export default function Home() {
 
   return (
     <div className=''>
-      
       <main className="max-w-7xl mx-auto px-4 py-12">
         <WelcomeSection />
         <ActionCards />
@@ -49,5 +49,17 @@ export default function Home() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <ClientOnly fallback={
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="text-white text-lg">Loading...</div>
+      </div>
+    }>
+      <HomeContent />
+    </ClientOnly>
   );
 }
