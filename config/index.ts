@@ -3,11 +3,8 @@ import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import {  somniaTestnet } from 'wagmi/chains'   // ✅ Fuji testnet chain from wagmi
 
 // Your WalletConnect / AppKit Project ID
-export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID // <-- replace with your real projectId from WalletConnect/AppKit
-console.log(projectId)
-if (!projectId) {
-  throw new Error('Project ID is not defined')
-}
+export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || 'your-project-id-here' // <-- replace with your real projectId from WalletConnect/AppKit
+console.log('Project ID:', projectId)
 
 // ✅ use Avalanche Fuji chain
 export const network = somniaTestnet

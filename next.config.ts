@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  // External packages for server components
+  serverExternalPackages: ['mongoose'],
+  // Ensure proper static generation
+  output: 'standalone',
 };
 
 export default nextConfig;

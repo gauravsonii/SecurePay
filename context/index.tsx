@@ -1,6 +1,6 @@
 'use client'
 
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState, useEffect } from 'react'
 import { wagmiAdapter } from '@/config'
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
@@ -16,6 +16,16 @@ function ContextProvider({
   children: ReactNode
   cookies: string | null
 }) {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return <>{children}</>
+  }
+
   const initialState = cookieToInitialState(
     wagmiAdapter.wagmiConfig as Config,
     cookies,
@@ -24,7 +34,6 @@ function ContextProvider({
   return (
     <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
-        {/* ✅ just RainbowKitProvider with your theme/locale if you want */}
         <RainbowKitProvider>{children}</RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
